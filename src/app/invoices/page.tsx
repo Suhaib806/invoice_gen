@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import InvoiceForm from '@/components/invoice/InvoiceForm';
+import InvoiceFormWithPreview from '@/components/invoice/InvoiceFormWithPreview';
 import InvoiceList from '@/components/invoice/InvoiceList';
 import InvoiceView from '@/components/invoice/InvoiceView';
 import type { InvoiceData, InvoiceItem } from '@/components/invoice/types';
@@ -457,7 +457,10 @@ const InvoicesPage = () => {
           {/* <div className="flex justify-end mb-6">
             <Link href="/invoices/history" className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-5 py-2 rounded-lg font-semibold shadow transition-all">View Invoice History</Link>
           </div> */}
-          <InvoiceForm
+          <div className="flex justify-end mb-6">
+            <Link href="/invoices/history" className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-5 py-2 rounded-lg font-semibold shadow transition-all">View Invoice History</Link>
+          </div>
+          <InvoiceFormWithPreview
             invoiceData={invoiceData}
             setInvoiceData={setInvoiceData}
             labels={invoiceData.labels}
@@ -486,12 +489,17 @@ const InvoicesPage = () => {
             logoDataUrl={logoDataUrl}
             setLogoDataUrl={setLogoDataUrl}
           />
-          <InvoiceList
-            invoices={invoices}
-            handleDownloadPDF={handleDownloadPDF}
-            handleView={handleView}
-            formatCurrency={formatCurrency}
-          />
+          
+          {/* Invoice History */}
+          <div className="mt-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">Invoice History</h2>
+            <InvoiceList
+              invoices={invoices}
+              handleDownloadPDF={handleDownloadPDF}
+              handleView={handleView}
+              formatCurrency={formatCurrency}
+            />
+          </div>
         </div>
       </main>
     </>
